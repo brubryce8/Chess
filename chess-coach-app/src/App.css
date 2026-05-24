@@ -1,0 +1,599 @@
+/* Global page setup */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #121212;
+  color: #f5f5f5;
+}
+
+button,
+select {
+  font-family: inherit;
+}
+
+/* Main app background and layout */
+.app {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(118, 150, 86, 0.25), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(238, 238, 210, 0.12), transparent 35%),
+    #151515;
+}
+
+/* Decorative background glow */
+.background-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255,255,255,0.04), transparent);
+}
+
+/* Header area */
+.top-bar {
+  max-width: 1320px;
+  margin: 0 auto 24px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-bar h1 {
+  margin: 0;
+  font-size: 42px;
+  letter-spacing: -1px;
+}
+
+.top-bar p {
+  margin: 6px 0 0 0;
+  color: #bdbdbd;
+}
+
+/* New game button styling */
+.new-game-button {
+  border: none;
+  background: #81b64c;
+  color: #111;
+  padding: 13px 22px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(129, 182, 76, 0.25);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.new-game-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+/* Main three-column layout */
+.main-layout {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px minmax(420px, 620px) 320px;
+  gap: 22px;
+  align-items: start;
+}
+
+/* Side panel layout */
+.left-panel,
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card styling used throughout the side panels */
+.bot-card,
+.status-box,
+.coach-box,
+.moves-card,
+.review-card {
+  background: rgba(35, 35, 35, 0.92);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* Bot information card */
+.bot-card {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.bot-avatar {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  background: linear-gradient(135deg, #81b64c, #baca44);
+  border-radius: 18px;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.18);
+}
+
+.bot-card h2,
+.moves-card h2,
+.review-card h2 {
+  margin: 0;
+}
+
+.bot-card p {
+  margin: 4px 0 0 0;
+  color: #bdbdbd;
+}
+
+/* Bot difficulty dropdown */
+.level-label {
+  color: #d8d8d8;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.level-select {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #242424;
+  color: #fff;
+  padding: 13px;
+  border-radius: 12px;
+  outline: none;
+}
+
+/* Status and coach boxes */
+.status-box span,
+.coach-box span {
+  color: #9d9d9d;
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.status-box strong {
+  font-size: 20px;
+}
+
+.coach-box p {
+  color: #e8e8e8;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Review and exit buttons */
+.review-button,
+.exit-review-button {
+  border: none;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.review-button {
+  background: linear-gradient(135deg, #f7c948, #f59e0b);
+  color: #171717;
+}
+
+.exit-review-button {
+  background: #ef4444;
+  color: #fff;
+}
+
+.review-button:hover,
+.exit-review-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+/* Animation for important review button */
+.pulse {
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(247, 201, 72, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 0 12px rgba(247, 201, 72, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(247, 201, 72, 0);
+  }
+}
+
+/* Chessboard section */
+.board-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.board-card {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.board-wrap {
+  animation: boardEntrance 0.5s ease;
+}
+
+@keyframes boardEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Evaluation bar next to the board */
+.eval-bar {
+  width: 18px;
+  height: 560px;
+  background: #1f2937;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.45);
+}
+
+.eval-white {
+  width: 100%;
+  background: linear-gradient(to top, #f5f5f5, #d4d4d4);
+  transition: height 0.35s ease;
+}
+
+/* Previous and next controls for review mode */
+.review-controls {
+  background: rgba(35, 35, 35, 0.92);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.review-controls button {
+  border: none;
+  background: #3b3b3b;
+  color: #fff;
+  padding: 13px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.review-controls button:hover {
+  background: #4a4a4a;
+}
+
+.review-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.quality-pill {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* Move history panel */
+.moves-card {
+  min-height: 360px;
+  max-height: 470px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.moves-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.moves-header span {
+  color: #a8a8a8;
+  font-size: 13px;
+}
+
+.move-list {
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.empty-moves {
+  color: #aaa;
+}
+
+/* Individual move row */
+.move-row {
+  display: grid;
+  grid-template-columns: 38px 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.move-number {
+  color: #999;
+  font-weight: 700;
+}
+
+.move-button {
+  border: none;
+  color: #f5f5f5;
+  background: #2c2c2c;
+  border-radius: 9px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.move-button:hover {
+  background: #3a3a3a;
+}
+
+.active-move {
+  outline: 2px solid #f7c948;
+  background: #4a3f1b;
+}
+
+/* Review guide panel */
+.review-card {
+  color: #e8e8e8;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.legend-row p {
+  margin: 0;
+}
+
+.legend-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+}
+
+.best {
+  background: #22c55e;
+}
+
+.good {
+  background: #3b82f6;
+}
+
+.inaccuracy {
+  background: #facc15;
+}
+
+.mistake {
+  background: #f97316;
+}
+
+.blunder {
+  background: #ef4444;
+}
+
+.hint {
+  color: #bdbdbd;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+/* Move quality colors */
+.quality-best {
+  background: #22c55e;
+  color: #071307;
+}
+
+.quality-good {
+  background: #3b82f6;
+  color: #061225;
+}
+
+.quality-inaccuracy {
+  background: #facc15;
+  color: #171717;
+}
+
+.quality-mistake {
+  background: #f97316;
+  color: #1a0b02;
+}
+
+.quality-blunder {
+  background: #ef4444;
+  color: #fff;
+}
+
+.quality-book,
+.quality-bot {
+  background: #a855f7;
+  color: #fff;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1160px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .board-card {
+    justify-content: flex-start;
+  }
+
+  .right-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 720px) {
+  .app {
+    padding: 14px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .top-bar h1 {
+    font-size: 32px;
+  }
+
+  .board-card {
+    flex-direction: column-reverse;
+  }
+
+  .eval-bar {
+    width: 100%;
+    height: 14px;
+    align-items: flex-start;
+  }
+
+  .eval-white {
+    height: 100% !important;
+    width: 50%;
+  }
+
+  .right-panel {
+    display: flex;
+  }
+
+  .review-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Checkmate popup background overlay */
+.checkmate-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(7px);
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+/* Checkmate popup box */
+.checkmate-modal {
+  width: min(440px, 100%);
+  background: linear-gradient(145deg, #2d2d2d, #171717);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
+  animation: popIn 0.28s ease;
+}
+
+/* Checkmate popup icon */
+.checkmate-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 14px auto;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+  background: linear-gradient(135deg, #f7c948, #f59e0b);
+  color: #171717;
+  box-shadow: 0 12px 35px rgba(247, 201, 72, 0.3);
+}
+
+.checkmate-modal h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.checkmate-modal p {
+  color: #d8d8d8;
+  line-height: 1.5;
+  margin: 12px 0 22px 0;
+}
+
+/* Checkmate popup buttons */
+.checkmate-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.close-popup-button {
+  border: none;
+  padding: 13px 16px;
+  border-radius: 14px;
+  background: #3b3b3b;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.close-popup-button:hover {
+  background: #4a4a4a;
+}
+
+/* Popup fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Popup entrance animation */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

@@ -1,0 +1,9 @@
+/* Sets the app to use dark mode colors by default */
+:root {
+  color-scheme: dark;
+}
+
+/* Gives the whole page a dark background */
+html {
+  background: #151515;
+}
